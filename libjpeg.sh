@@ -19,6 +19,9 @@
 
 : ${XCODE_ROOT:=`xcode-select -print-path`}
 
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+pushd $SCRIPT_DIR
+
 : ${TARBALLDIR:=`pwd`}
 : ${SRCDIR:=`pwd`/src}
 : ${IOSBUILDDIR:=`pwd`/ios/build}
@@ -245,7 +248,7 @@ EOF
 
 mkdir -p $IOSBUILDDIR
 
-# cleanEverythingReadyToStart #may want to comment if repeatedly running during dev
+cleanEverythingReadyToStart #may want to comment if repeatedly running during dev
 
 echo "LIB_VERSION:       $LIB_VERSION"
 echo "LIB_SRC:           $LIB_SRC"
@@ -263,5 +266,6 @@ scrunchAllLibsTogetherInOneLibPerPlatform
 buildFramework $IOSFRAMEWORKDIR $IOSBUILDDIR
 
 echo "Completed successfully"
+popd
 
 #===============================================================================
